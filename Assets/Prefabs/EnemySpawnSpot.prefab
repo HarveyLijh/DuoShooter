@@ -45,5 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: {fileID: 4100074771594231958, guid: 12bf61afc61254706874ba5ba27984a0,
     type: 3}
-  numberToSpawn: 10
+  numberToSpawn: 8
   timeNeedToSpawnAll: 30

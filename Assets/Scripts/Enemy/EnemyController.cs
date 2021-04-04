@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     private Rigidbody enemyBody;
-    [SerializeField] float moveSpeed;
-
-    public Player thePlayer;
+    public float moveSpeed;
+    public bool isDead;
+    private Player thePlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +18,23 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(new Vector3(thePlayer.transform.position.x,1.2f, thePlayer.transform.position.z));
+        if (transform.position.y >= 1.11)
+        {
+            isDead = true;
+            Debug.Log("high");
+        }
+        else
+        {
+            isDead = false;
+            transform.LookAt(new Vector3(thePlayer.transform.position.x, 1.2f, thePlayer.transform.position.z));
+        }
     }
-
     private void FixedUpdate()
     {
-        enemyBody.velocity = (transform.forward * moveSpeed);
+        if (!isDead)
+        {
+            enemyBody.velocity = (transform.forward * moveSpeed);
+        }
 
 
     }

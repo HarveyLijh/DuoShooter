@@ -18,6 +18,26 @@ public class Player : MonoBehaviour
     private int currentGunIndex;
     private UI_GunInfo myGunInfo;
 
+    [SerializeField]
+    private Transform grenadeThrowSpot;
+    [SerializeField]
+    private Grenade GrenadeType;
+    [SerializeField]
+    private float throwForce;
+
+    [SerializeField]
+    private GameObject shockWaveEffect;
+    [SerializeField]
+    private float shockWaveForce;
+    [SerializeField]
+    private float shockWaveRadius;
+    [SerializeField]
+    private float shockWaveDamage;
+    [SerializeField]
+    private AudioSource ShockWaveSound;
+
+    private Collider[] affectedObjects;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -107,10 +127,69 @@ public class Player : MonoBehaviour
             {
                 updateGunInfo(currentGunIndex, -1);
             }
+
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                ThrowGrenade();
+            }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                ShockWave();
+            }
+
         }
 
     }
 
+    private void ShockWave()
+    {
+        GameObject shockWave = Instantiate(shockWaveEffect, transform.position, transform.rotation);
+        ShockWaveSound.Play();
+        affectedObjects = Physics.OverlapSphere(transform.position, shockWaveRadius);
+
+        foreach (Collider nearbyObject in affectedObjects)
+        {
+            Rigidbody rb = nearbyObject.GetComponent<Rigidbody>();
+            if (rb != null && nearbyObject.gameObject.tag != "Player")
+            {
+
+                rb.AddExplosionForce(shockWaveForce, transform.position, shockWaveRadius, 10f, ForceMode.Impulse);
+                if (nearbyObject.gameObject.tag == "Enemy")
+                {
+                    nearbyObject.gameObject.GetComponent<EnemyController>().isDead = true;
+                    Transform enemyTransform = nearbyObject.gameObject.GetComponent<Transform>();
+                    enemyTransform.LookAt(new Vector3(enemyTransform.position.x, 3, enemyTransform.position.z));
+                    nearbyObject.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(shockWaveDamage);
+                    //Invoke("disableNomb", 4f);
+                }
+
+            }
+        }
+        Destroy(shockWave, 1f);
+
+    }
+
+    private void disableNomb()
+    {
+        foreach (Collider nearbyObject in affectedObjects)
+        {
+
+            if (nearbyObject != null && nearbyObject.gameObject.tag == "Enemy")
+            {
+                nearbyObject.gameObject.GetComponent<EnemyController>().isDead = false;
+                nearbyObject.gameObject.GetComponent<Transform>().LookAt(new Vector3(transform.position.x, 1.2f, transform.position.z));
+            }
+
+
+        }
+    }
+
+    private void ThrowGrenade()
+    {
+        Grenade newGrenade = Instantiate(GrenadeType, grenadeThrowSpot.position, grenadeThrowSpot.rotation) as Grenade;
+        Rigidbody rb = newGrenade.GetComponent<Rigidbody>();
+        rb.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
+    }
     // Fixedupdate is called once every physic update
     private void FixedUpdate()
     {

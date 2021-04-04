@@ -17,6 +17,7 @@ public class EnemyHealthManager : MonoBehaviour
     private List<Renderer> rendChildren;
     private int numOfChildren;
     private Color origColor;
+    private GameObject healthbarObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,10 +28,15 @@ public class EnemyHealthManager : MonoBehaviour
         {
 
             GameObject child = transform.GetChild(i).gameObject;
+            //Debug.Log(child.tag);
             if (child.tag != "healthBar")
             {
                 rendChildren.Add(child.GetComponent<Renderer>());
                 numOfChildren++;
+            }
+            else
+            {
+                healthbarObject = child;
             }
         }
         origColor = rend.material.GetColor("_Color");
@@ -55,13 +61,23 @@ public class EnemyHealthManager : MonoBehaviour
         }
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            Destroy(healthbarObject);
+            transform.LookAt(new Vector3(transform.position.x, 3, transform.position.z));
+            //gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, gameObject.GetComponent<Rigidbody>().velocity.y, 0);
+            gameObject.GetComponent<EnemyController>().isDead = true;
+            rend.material.SetColor("_Color", Color.grey);
+            for (int i = 0; i < numOfChildren; i++)
+            {
+                rendChildren[i].material.SetColor("_Color", Color.grey);
+            }
+            Destroy(gameObject,5);
         }
 
     }
 
     public void HurtEnemy(float damage)
     {
+        //Debug.Log("hurt");
         flashCountDown = hurtFlashLength;
         rend.material.SetColor("_Color", Color.red);
         //set color for hands and other children parts

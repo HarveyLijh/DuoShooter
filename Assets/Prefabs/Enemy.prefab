@@ -75,6 +75,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -99,6 +100,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4100074771594232041
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,6 +164,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -186,6 +189,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &4100074771594232042
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -212,8 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 822f4623f056a4dbea4eb9370f954757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2.2
-  thePlayer: {fileID: 0}
+  moveSpeed: 1.5
+  isDead: 0
 --- !u!54 &4100074771594231959
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -242,7 +246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b89a9efa4e3fb4b8b8eae033ece88bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 10
   hurtFlashLength: 0.07
   healthBar: {fileID: 6664144667740870323}
 --- !u!1 &4100074771614685836
@@ -301,6 +305,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -325,6 +330,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &4100074771614685838
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -395,6 +401,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -419,6 +426,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &4100074772283508310
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -449,6 +457,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521885009087689255, guid: fa6f4f4bedc764f91bb4a43f3f31702e,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4255933668981675828, guid: fa6f4f4bedc764f91bb4a43f3f31702e,
         type: 3}

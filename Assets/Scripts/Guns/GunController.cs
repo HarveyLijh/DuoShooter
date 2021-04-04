@@ -40,6 +40,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private Transform fireSpot;
 
     // audio sources
+    [SerializeField]
     private AudioSource shootingSound;
     private AudioSource reloadingSound;
     private AudioSource noAmmoSound;
@@ -61,7 +62,7 @@ public class GunController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        shootingSound = GetComponent<AudioSource>();
+        //shootingSound = GetComponent<AudioSource>();
         upRecoil = new Vector3(recoilLevel * 3, 0, 0);
         recoilCountDown_manual = recoilLevel * 0.9f;
         origRotation = transform.localEulerAngles;

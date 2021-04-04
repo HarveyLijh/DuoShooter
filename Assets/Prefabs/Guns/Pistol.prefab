@@ -55,6 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -79,6 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &2162450760093364788
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +145,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -167,6 +170,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &3868341065330485958
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,7 +187,7 @@ MonoBehaviour:
   bullet: {fileID: 3159562307571978695, guid: 7687d8679d7cd4a888392c7c845421b0, type: 3}
   bulletSpeed: 10
   bulletRange: 10
-  bulletDamage: 1
+  bulletDamage: 3
   timeBtwShots_Auto: 0
   bulletIsPenetrable: 0
   timeBtwShots_Manual: 0.1
@@ -192,6 +196,7 @@ MonoBehaviour:
   AmmoPerClip: 11
   reloadTime: 1
   fireSpot: {fileID: 6649751543646701610}
+  shootingSound: {fileID: 1862286433321621479}
   recoilLevel: 0
   theGunInfo: {fileID: 0}
   spreadX: 0
@@ -456,6 +461,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -480,6 +486,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4729806531720808174
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,6 +542,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -559,6 +567,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8734877414371513173
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +623,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -638,6 +648,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &9092073625189278906
 GameObject:
   m_ObjectHideFlags: 0
