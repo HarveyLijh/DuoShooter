@@ -47,6 +47,7 @@ public class Grenade : MonoBehaviour
             {
                 if (nearbyObject.gameObject.tag == "Enemy")
                 {
+                    nearbyObject.gameObject.GetComponent<EnemyController>().goNumb();
                     rb.AddExplosionForce(force, transform.position, radius, 10f, ForceMode.Impulse);
                     nearbyObject.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(damage);
                 }

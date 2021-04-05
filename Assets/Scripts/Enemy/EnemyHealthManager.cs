@@ -64,7 +64,7 @@ public class EnemyHealthManager : MonoBehaviour
             Destroy(healthbarObject);
             transform.LookAt(new Vector3(transform.position.x, 3, transform.position.z));
             //gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0, gameObject.GetComponent<Rigidbody>().velocity.y, 0);
-            gameObject.GetComponent<EnemyController>().isDead = true;
+            gameObject.GetComponent<EnemyController>().isNumb = true;
             rend.material.SetColor("_Color", Color.grey);
             for (int i = 0; i < numOfChildren; i++)
             {

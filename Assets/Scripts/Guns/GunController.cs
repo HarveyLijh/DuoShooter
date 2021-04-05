@@ -32,9 +32,9 @@ public class GunController : MonoBehaviour
     [SerializeField] private bool reloadable;
     [SerializeField] private int AmmoPerClip;
     [SerializeField] private float reloadTime;
-    private int currentAmmoInClip;
+    public int currentAmmoInClip;
     private float reloadCountDown;
-    private bool reloading;
+    public bool reloading;
 
     // spot where bullet is fired
     [SerializeField] private Transform fireSpot;
@@ -59,6 +59,8 @@ public class GunController : MonoBehaviour
     [SerializeField] private float spreadX;
     [SerializeField] private float spreadY;
 
+    public int totalAmmo;
+    public int maxTotalAmmo;
     // Start is called before the first frame update
     void Start()
     {
@@ -72,6 +74,7 @@ public class GunController : MonoBehaviour
         {
             currentAmmoInClip = AmmoPerClip;
             reloadCountDown = reloadTime;
+            maxTotalAmmo = totalAmmo;
         }
         setupBulletInfo();
         //Debug.Log("ss "+gameObject.name);
@@ -98,16 +101,16 @@ public class GunController : MonoBehaviour
 
     }
 
-    void setupBulletInfo()
+    public void setupBulletInfo()
     {
         theGunInfo.showGunName(gameObject.name);
         if (reloadable)
         {
-            theGunInfo.showBulletNum(currentAmmoInClip);
+            theGunInfo.showBulletNum(currentAmmoInClip, totalAmmo);
         }
         else
         {
-            theGunInfo.showBulletNum(-100);
+            theGunInfo.showBulletNum(-100, -100);
         }
     }
 
@@ -148,8 +151,8 @@ public class GunController : MonoBehaviour
             if (isFiring)
             {
                 //Spread
-                float spreadAxis_x = Random.Range(-spreadX/10, spreadX/10);
-                float spreadAxis_y = Random.Range(-spreadY/10, spreadY/10);
+                float spreadAxis_x = Random.Range(-spreadX / 10, spreadX / 10);
+                float spreadAxis_y = Random.Range(-spreadY / 10, spreadY / 10);
 
                 //Calculate Direction with Spread
                 Vector3 direction = fireSpot.transform.forward + new Vector3(spreadAxis_x, spreadAxis_y, 0);
@@ -170,7 +173,7 @@ public class GunController : MonoBehaviour
                         shotCountDown_Auto = timeBtwShots_Auto;
                         BulletController newBullet = Instantiate(bullet, fireSpot.position, fireSpot.rotation) as BulletController;
                         newBullet.speed = bulletSpeed;
-                        newBullet.spreadDirection = fireSpot.position+ direction;
+                        newBullet.spreadDirection = fireSpot.position + direction;
                         shootingSound.Play();
                         newBullet.range = bulletRange;
                         newBullet.damage = bulletDamage;
@@ -178,7 +181,7 @@ public class GunController : MonoBehaviour
                         if (reloadable)
                         {
                             currentAmmoInClip--;
-                            theGunInfo.showBulletNum(currentAmmoInClip);
+                            theGunInfo.showBulletNum(currentAmmoInClip, totalAmmo);
 
                         }
 
@@ -205,7 +208,7 @@ public class GunController : MonoBehaviour
                             if (reloadable)
                             {
                                 currentAmmoInClip--;
-                                theGunInfo.showBulletNum(currentAmmoInClip);
+                                theGunInfo.showBulletNum(currentAmmoInClip, totalAmmo);
                             }
                         }
                     }
@@ -237,19 +240,46 @@ public class GunController : MonoBehaviour
     public void Reload()
     {
         //Debug.Log(reloadCountDown);
-
+        //Debug.Log(totalAmmo);
+        if (totalAmmo == 0)
+        {
+            //Debug.Log("returned");
+            return;
+        }
         if (reloadable && reloadCountDown <= 0)
         {
             //play reload sound and return
-            currentAmmoInClip = AmmoPerClip;
-            theGunInfo.showBulletNum(currentAmmoInClip);
+
+
+            // check if total ammo is empty, stop reload
+           
+
+            // check if ammo remain in clip
+            if (currentAmmoInClip > 0)
+            {
+                // store remain ammo to total and clean the clip
+                totalAmmo += currentAmmoInClip;
+                currentAmmoInClip = 0;
+            }
+
+            if (totalAmmo <= AmmoPerClip)
+            {
+                currentAmmoInClip = totalAmmo;
+                totalAmmo = 0;
+            }
+            else
+            {
+                currentAmmoInClip = AmmoPerClip;
+                totalAmmo -= currentAmmoInClip;
+            }
+            theGunInfo.showBulletNum(currentAmmoInClip, totalAmmo);
             reloading = false;
             reloadCountDown = reloadTime;
         }
         else
         {
             reloading = true;
-            theGunInfo.showBulletNum(-200);
+            theGunInfo.showBulletNum(-200, -200);
         }
     }
 }

@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed;
     private Camera mainCamera;
     public GunController[] theGuns;
-    private GunController currentGun;
+    public GunController currentGun;
     private int currentGunIndex;
     private UI_GunInfo myGunInfo;
 
@@ -156,32 +156,14 @@ public class Player : MonoBehaviour
                 rb.AddExplosionForce(shockWaveForce, transform.position, shockWaveRadius, 10f, ForceMode.Impulse);
                 if (nearbyObject.gameObject.tag == "Enemy")
                 {
-                    nearbyObject.gameObject.GetComponent<EnemyController>().isDead = true;
-                    Transform enemyTransform = nearbyObject.gameObject.GetComponent<Transform>();
-                    enemyTransform.LookAt(new Vector3(enemyTransform.position.x, 3, enemyTransform.position.z));
+                    nearbyObject.gameObject.GetComponent<EnemyController>().goNumb();
                     nearbyObject.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(shockWaveDamage);
-                    //Invoke("disableNomb", 4f);
                 }
 
             }
         }
         Destroy(shockWave, 1f);
 
-    }
-
-    private void disableNomb()
-    {
-        foreach (Collider nearbyObject in affectedObjects)
-        {
-
-            if (nearbyObject != null && nearbyObject.gameObject.tag == "Enemy")
-            {
-                nearbyObject.gameObject.GetComponent<EnemyController>().isDead = false;
-                nearbyObject.gameObject.GetComponent<Transform>().LookAt(new Vector3(transform.position.x, 1.2f, transform.position.z));
-            }
-
-
-        }
     }
 
     private void ThrowGrenade()

@@ -24,13 +24,13 @@ public class InfraredBeam : MonoBehaviour
 
     void FixedUpdate()
     {
-        RaycastHit hit;
+        //RaycastHit hit;
 
         beam.SetPosition(1, new Vector3(0, 0, range));
-        if (Physics.Raycast(transform.position, transform.forward, out hit))
-        {
-            beam.SetPosition(1, new Vector3(0, 0, hit.distance));
-            //Debug.DrawLine(new Vector3(0, 0, 0), new Vector3(0, 0, hit.distance), Color.blue);
-        }
+        //if (Physics.Raycast(transform.position, transform.forward, out hit))
+        //{
+        //    beam.SetPosition(1, new Vector3(0, 0, hit.distance));
+        //    //Debug.DrawLine(new Vector3(0, 0, 0), new Vector3(0, 0, hit.distance), Color.blue);
+        //}
     }
 }

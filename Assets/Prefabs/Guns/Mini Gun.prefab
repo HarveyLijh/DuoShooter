@@ -1536,6 +1536,8 @@ MonoBehaviour:
   theGunInfo: {fileID: 0}
   spreadX: 3
   spreadY: 0
+  totalAmmo: 150
+  maxTotalAmmo: 0
 --- !u!82 &-4646166313239953948
 AudioSource:
   m_ObjectHideFlags: 0

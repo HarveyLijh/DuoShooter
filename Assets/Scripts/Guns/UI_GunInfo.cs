@@ -4,11 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UI_GunInfo : MonoBehaviour
 {
-    //public int ammoPerClip;
-    private int currentAmmoInClip;
-    public Text bulletNum;
+    public Text bulletInfo;
     public Text gunName;
-    //public int totalAmmo;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,19 +18,19 @@ public class UI_GunInfo : MonoBehaviour
 
     }
 
-    public void showBulletNum(int bulletNumInt)
+    public void showBulletNum(int bulletNumInt, int totalBulletLeft)
     {
         if (bulletNumInt == -100)
         {
-            bulletNum.text = "∞";
+            bulletInfo.text = "∞/∞";
         }
         else if(bulletNumInt == -200)
         {
-            bulletNum.text = "Reloading...";
+            bulletInfo.text = "Reloading...";
         }
         else
         {
-            bulletNum.text = bulletNumInt.ToString();
+            bulletInfo.text = bulletNumInt.ToString() + "/ " + totalBulletLeft;
         }
     }
 
