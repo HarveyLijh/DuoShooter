@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class GunController : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class GunController : MonoBehaviour
     // audio sources
     [SerializeField]
     private AudioSource shootingSound;
+    [SerializeField]
     private AudioSource reloadingSound;
     private AudioSource noAmmoSound;
 
@@ -61,6 +63,16 @@ public class GunController : MonoBehaviour
 
     public int totalAmmo;
     public int maxTotalAmmo;
+
+
+    // cam shake
+    [SerializeField]
+    private float GunCamShake = 1f;
+    [SerializeField]
+    private float GunCamShakeEaseIn = .1f;
+    [SerializeField]
+    private float GunCamShakeEaseOut = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -172,6 +184,7 @@ public class GunController : MonoBehaviour
                     {
                         shotCountDown_Auto = timeBtwShots_Auto;
                         BulletController newBullet = Instantiate(bullet, fireSpot.position, fireSpot.rotation) as BulletController;
+                        CameraShaker.Instance.ShakeOnce(GunCamShake, GunCamShake, GunCamShakeEaseIn, GunCamShakeEaseOut);
                         newBullet.speed = bulletSpeed;
                         newBullet.spreadDirection = fireSpot.position + direction;
                         shootingSound.Play();
@@ -199,6 +212,7 @@ public class GunController : MonoBehaviour
 
                             shotCountDown_Manual = timeBtwShots_Manual;
                             BulletController newBullet = Instantiate(bullet, fireSpot.position, fireSpot.rotation) as BulletController;
+                            CameraShaker.Instance.ShakeOnce(GunCamShake, GunCamShake, GunCamShakeEaseIn, GunCamShakeEaseOut);
                             newBullet.speed = bulletSpeed;
                             newBullet.spreadDirection = fireSpot.position + direction;
                             shootingSound.Play();
@@ -235,6 +249,11 @@ public class GunController : MonoBehaviour
         }
 
 
+    }
+
+    private void playReloadSound()
+    {
+        reloadingSound.Play();
     }
 
     public void Reload()
@@ -275,6 +294,7 @@ public class GunController : MonoBehaviour
             theGunInfo.showBulletNum(currentAmmoInClip, totalAmmo);
             reloading = false;
             reloadCountDown = reloadTime;
+            playReloadSound();
         }
         else
         {

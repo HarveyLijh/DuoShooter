@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using EZCameraShake;
 public class Grenade : MonoBehaviour
 {
     public float delay = 3f;
@@ -38,6 +38,9 @@ public class Grenade : MonoBehaviour
         GameObject explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
         gameObject.GetComponent<Renderer>().enabled = false;
         ExplodeSound.Play();
+
+        CameraShaker.Instance.ShakeOnce(8f,8f,.1f,1f);
+
         Collider[] affectedObjects = Physics.OverlapSphere(transform.position, radius);
 
         foreach (Collider nearbyObject in affectedObjects)

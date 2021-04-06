@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 367316116197773141}
   - component: {fileID: 1617933077749003510}
   - component: {fileID: 1617933077749003511}
-  - component: {fileID: 2785224931165819819}
+  - component: {fileID: -8078987383620756458}
   m_Layer: 0
   m_Name: Ak-47
   m_TagString: Untagged
@@ -114,14 +114,20 @@ MonoBehaviour:
   reloadable: 1
   AmmoPerClip: 30
   reloadTime: 2.6
+  currentAmmoInClip: 0
+  reloading: 0
   fireSpot: {fileID: 1952241627677240627}
   shootingSound: {fileID: 1617933077749003510}
+  reloadingSound: {fileID: 1617933077749003511}
   recoilLevel: 0
   theGunInfo: {fileID: 0}
   spreadX: 2
   spreadY: 0
   totalAmmo: 180
-  maxTotalAmmo: 0
+  maxTotalAmmo: 180
+  GunCamShake: 1.3
+  GunCamShakeEaseIn: 0.1
+  GunCamShakeEaseOut: 0.4
 --- !u!65 &367316116197773141
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -242,7 +248,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9158afb6966d445db9caf1dccf7acbcc, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.1
   m_Pitch: 1
   Loop: 0
@@ -327,7 +333,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &2785224931165819819
+--- !u!82 &-8078987383620756458
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -337,7 +343,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b0d51244fd32fc647960320540b32f66, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 33a4a9bf1a1dbca4cb379a1118c6b20d, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -690,7 +696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8282697653947877887}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.45}
+  m_LocalPosition: {x: 0, y: 0, z: 0.474}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1620652334534648266}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class Player : MonoBehaviour
 {
@@ -38,6 +39,11 @@ public class Player : MonoBehaviour
 
     private Collider[] affectedObjects;
 
+    [SerializeField]
+    private float shockwaveCamShake;
+
+    [SerializeField]
+    private AudioSource supplyTakenSound;
     // Start is called before the first frame update
     void Awake()
     {
@@ -145,6 +151,7 @@ public class Player : MonoBehaviour
     {
         GameObject shockWave = Instantiate(shockWaveEffect, transform.position, transform.rotation);
         ShockWaveSound.Play();
+        CameraShaker.Instance.ShakeOnce(shockwaveCamShake, shockwaveCamShake, .1f, 1f);
         affectedObjects = Physics.OverlapSphere(transform.position, shockWaveRadius);
 
         foreach (Collider nearbyObject in affectedObjects)
@@ -164,6 +171,12 @@ public class Player : MonoBehaviour
         }
         Destroy(shockWave, 1f);
 
+    }
+
+    public void TakeBulletSupply()
+    {
+
+        supplyTakenSound.Play();
     }
 
     private void ThrowGrenade()

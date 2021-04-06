@@ -70,6 +70,10 @@ public class EnemyHealthManager : MonoBehaviour
             {
                 rendChildren[i].material.SetColor("_Color", Color.grey);
             }
+            if(gameObject.GetComponentInChildren<HurtPlayer>()!= null)
+            {
+                gameObject.GetComponentInChildren<HurtPlayer>().gameObject.SetActive(false);
+            }
             Destroy(gameObject,5);
         }
 
