@@ -14,14 +14,14 @@ public class PlayerHealthManager : MonoBehaviour
     private Color origColor;
 
     [SerializeField]
-    private HealthBar healthBar;
+    private UIGradientBar healthBar;
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = playerHealth;
         rend = GetComponent<Renderer>();
         origColor = rend.material.GetColor("_Color");
-        healthBar.SetMaxHealth(playerHealth);
+        healthBar.SetMaxBarVal(playerHealth);
     }
 
     // Update is called once per frame
@@ -38,7 +38,7 @@ public class PlayerHealthManager : MonoBehaviour
         }
         if (currentHealth <= 0)
         {
-            gameObject.SetActive(false);
+            gameObject.GetComponent<Player>().PlayerDead();
         }
     }
 
@@ -47,6 +47,6 @@ public class PlayerHealthManager : MonoBehaviour
         flashCountDown = hurtFlashLength;
         rend.material.SetColor("_Color", Color.red);
         currentHealth -= damageAmount;
-        healthBar.SetHealth(currentHealth);
+        healthBar.SetValue(currentHealth);
     }
 }

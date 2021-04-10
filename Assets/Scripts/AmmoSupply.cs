@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class AmmoSupply : MonoBehaviour
 {
-    private List<Transform> children;
 
     // Start is called before the first frame update
     void Start()
@@ -26,14 +25,15 @@ public class AmmoSupply : MonoBehaviour
         {
             GunController currentGun = other.gameObject.GetComponent<Player>().currentGun.GetComponent<GunController>();
             //Debug.Log(currentGun.totalAmmo);
-            if (currentGun.reloading)
-            {
-                currentGun.totalAmmo = currentGun.maxTotalAmmo + currentGun.maxTotalAmmo - currentGun.currentAmmoInClip;
-            }
-            else
-            {
-                currentGun.totalAmmo = currentGun.maxTotalAmmo;
-            }
+            //if (currentGun.reloading)
+            //{
+            //    currentGun.totalAmmo = currentGun.maxTotalAmmo + currentGun.maxTotalAmmo - currentGun.currentAmmoInClip;
+            //}
+            //else
+            //{
+            //    currentGun.totalAmmo = currentGun.maxTotalAmmo;
+            //}
+            currentGun.totalAmmo += currentGun.maxTotalAmmo - currentGun.totalAmmo - currentGun.currentAmmoInClip;
             currentGun.setupBulletInfo();
             other.gameObject.GetComponent<Player>().TakeBulletSupply();
             Destroy(gameObject);

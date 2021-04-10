@@ -47,6 +47,7 @@ TrailRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -178,6 +179,7 @@ MonoBehaviour:
   range: 1
   damage: 1
   isPenetrable: 0
+  spreadDirection: {x: 0, y: 0, z: 0}
 --- !u!54 &5023458310624288677
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -271,11 +273,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6436788196071786124, guid: b262797453fcc442fafebae8a5abd67e,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 6e1db0e7b7baa4098862d75cc08f7b10, type: 2}
     - target: {fileID: 6822470168472135793, guid: b262797453fcc442fafebae8a5abd67e,
         type: 3}
       propertyPath: m_Name

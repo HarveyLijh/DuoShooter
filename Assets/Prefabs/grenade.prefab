@@ -131,7 +131,7 @@ MonoBehaviour:
   radius: 3
   explosionEffect: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
     type: 3}
-  force: 18
+  force: 20
   damage: 30
   ExplodeSound: {fileID: 9191780404645304644}
 --- !u!82 &9191780404645304644
