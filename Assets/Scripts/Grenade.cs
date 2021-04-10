@@ -54,9 +54,14 @@ public class Grenade : MonoBehaviour
                     rb.AddExplosionForce(force, transform.position, radius, 10f, ForceMode.Impulse);
                     nearbyObject.gameObject.GetComponent<EnemyHealthManager>().HurtEnemy(damage);
                 }
+                else if(nearbyObject.gameObject.tag == "Player")
+                {
+                    rb.AddExplosionForce(force*1.5f, transform.position, radius, 10f, ForceMode.Impulse);
+                    nearbyObject.gameObject.GetComponent<PlayerHealthManager>().HurtPlayer(damage/3);
+                }
                 else
                 {
-                    rb.AddExplosionForce(force, transform.position, radius, 10f, ForceMode.Force);
+                    rb.AddExplosionForce(force, transform.position, radius, 10f, ForceMode.Impulse);
                 }
             }
         }

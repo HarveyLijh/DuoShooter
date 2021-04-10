@@ -2,51 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealthManager : MonoBehaviour
+public class PlayerEnergyManager : MonoBehaviour
 {
-    [SerializeField] private float playerHealth;
-    private float currentHealth;
-
-    [SerializeField] private float hurtFlashLength;
-    private float flashCountDown;
-
-    private Renderer rend;
-    private Color origColor;
+    [SerializeField] private float playerEnergy;
+    public float currentEnergy;
 
     [SerializeField]
-    private HealthBar healthBar;
+    private UIGradientBar energyBar;
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = playerHealth;
-        rend = GetComponent<Renderer>();
-        origColor = rend.material.GetColor("_Color");
-        healthBar.SetMaxHealth(playerHealth);
+        currentEnergy = playerEnergy;
+        energyBar.SetMaxBarVal(playerEnergy);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    //// Update is called once per frame
+    //void Update()
+    //{
 
-        if (flashCountDown <= 0)
-        {
-            rend.material.SetColor("_Color", origColor);
-        }
-        else
-        {
-            flashCountDown -= Time.deltaTime;
-        }
-        if (currentHealth <= 0)
-        {
-            gameObject.GetComponent<Player>().PlayerDead();
-        }
+    //}
+
+    public void UseEnergy(float usageAmount)
+    {
+        currentEnergy -= usageAmount;
+        energyBar.SetValue(currentEnergy);
     }
 
-    public void HurtPlayer(float damageAmount)
+    public void GainEnergy(float usageAmount)
     {
-        flashCountDown = hurtFlashLength;
-        rend.material.SetColor("_Color", Color.red);
-        currentHealth -= damageAmount;
-        healthBar.SetHealth(currentHealth);
+        currentEnergy += usageAmount;
+        if(currentEnergy > playerEnergy)
+        {
+            currentEnergy = playerEnergy;
+        }
+        energyBar.SetValue(currentEnergy);
     }
 }

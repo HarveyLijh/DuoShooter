@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EZCameraShake;
+using UnityEngine.UI;
 
 public class GunController : MonoBehaviour
 {
@@ -73,6 +74,11 @@ public class GunController : MonoBehaviour
     [SerializeField]
     private float GunCamShakeEaseOut = 1f;
 
+
+    // reload progress
+    public Image ProgressFill;
+    [RangeAttribute(0, 1)] private float reloadingProgress = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -86,7 +92,7 @@ public class GunController : MonoBehaviour
         {
             currentAmmoInClip = AmmoPerClip;
             reloadCountDown = reloadTime;
-            maxTotalAmmo = totalAmmo;
+            maxTotalAmmo = totalAmmo + AmmoPerClip;
         }
         setupBulletInfo();
         //Debug.Log("ss "+gameObject.name);
@@ -152,6 +158,7 @@ public class GunController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (reloading)
         {
             reloadCountDown -= Time.deltaTime;
@@ -247,6 +254,22 @@ public class GunController : MonoBehaviour
                 }
             }
         }
+        if (reloadTime == reloadCountDown)
+        {
+            if (currentAmmoInClip == 0)
+            {
+                reloadingProgress = 0f;
+            }
+            else
+            {
+                reloadingProgress = 1f;
+            }
+        }
+        else
+        {
+            reloadingProgress = (reloadTime - reloadCountDown) / reloadTime;
+        }
+        ProgressFill.fillAmount = reloadingProgress;
 
 
     }
@@ -271,7 +294,7 @@ public class GunController : MonoBehaviour
 
 
             // check if total ammo is empty, stop reload
-           
+
 
             // check if ammo remain in clip
             if (currentAmmoInClip > 0)

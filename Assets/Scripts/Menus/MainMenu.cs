@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         PauseMenu.GameIsPaused = false;
+        GameOverMenu.GameIsOver = false;
     }
 
     public void Quit()

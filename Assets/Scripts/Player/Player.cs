@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EZCameraShake;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -44,6 +45,16 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private AudioSource supplyTakenSound;
+
+    [SerializeField]
+    private Image crosshair;
+    [SerializeField]
+    private Image crosshair_progressFill;
+
+    public bool IsPlayerDead;
+
+    public PlayerEnergyManager energyManager;
+    public XPManager xpManager;
     // Start is called before the first frame update
     void Awake()
     {
@@ -53,6 +64,8 @@ public class Player : MonoBehaviour
         }
         rigibodyComponent = GetComponent<Rigidbody>();
         mainCamera = GameObject.Find("TopDownMainCamera").GetComponent<Camera>();
+        energyManager = gameObject.GetComponent<PlayerEnergyManager>();
+        xpManager = gameObject.GetComponent<XPManager>();
         myGunInfo = gameObject.GetComponent<UI_GunInfo>();
         if (theGuns.Length > 0)
         {
@@ -69,6 +82,7 @@ public class Player : MonoBehaviour
         currentGun = theGuns[index];
         currentGunIndex = index;
         currentGun.theGunInfo = myGunInfo;
+        currentGun.ProgressFill = crosshair_progressFill;
         //Debug.Log("before active");
         theGuns[index].gameObject.SetActive(true);
     }
@@ -80,7 +94,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!PauseMenu.GameIsPaused)
+        if (!PauseMenu.GameIsPaused && !GameOverMenu.GameIsOver)
         {
             // check if the space is pressed down
             if (Input.GetKeyDown(KeyCode.Space))
@@ -103,6 +117,8 @@ public class Player : MonoBehaviour
                 //Debug.DrawLine(cameraRay.origin, pointToLook, Color.red);
 
                 transform.LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+                currentGun.GetComponent<Transform>().LookAt(new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
+                crosshair.transform.position = new Vector3(pointToLook.x, transform.position.y, pointToLook.z);
             }
 
             //handle gun shooting and reloading events
@@ -140,17 +156,44 @@ public class Player : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                ShockWave();
+                if(energyManager.currentEnergy >= 50)
+                {
+                    ShockWave();
+                }
             }
 
+            if(transform.position.y <= -1)
+            {
+                PlayerDead();
+
+            }
         }
 
     }
 
+    public void PlayerDead()
+    {
+        gameObject.SetActive(false);
+        crosshair_progressFill.gameObject.SetActive(false);
+        crosshair.gameObject.SetActive(false);
+        IsPlayerDead = true;
+
+    }
+
+    public void reInvoke()
+    {
+        gameObject.SetActive(true);
+        crosshair_progressFill.gameObject.SetActive(true);
+        crosshair.gameObject.SetActive(true);
+        IsPlayerDead = false;
+    }
     private void ShockWave()
     {
         GameObject shockWave = Instantiate(shockWaveEffect, transform.position, transform.rotation);
         ShockWaveSound.Play();
+
+        energyManager.UseEnergy(50);
+
         CameraShaker.Instance.ShakeOnce(shockwaveCamShake, shockwaveCamShake, .1f, 1f);
         affectedObjects = Physics.OverlapSphere(transform.position, shockWaveRadius);
 
@@ -215,6 +258,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.layer == 8)
         {
+            // coin
             Destroy(other.gameObject);
             superJumpsRemaining++;
         }
